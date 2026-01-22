@@ -44,20 +44,41 @@ public class ServicoUsuario implements Servicos,Serializable{
         if(!usuarios.containsKey(nomeAtual)){
             throw new IllegalArgumentException ("O usuario " + nomeAtual + "não existe!");
         }
+        
         Usuario usuario = usuarios.get(nomeAtual);
+        
         if(!usuario.getSenha().equals(senhaAtual)){
             throw new IllegalArgumentException("Senha Incorreta!");
         }
         
         usuario.setNomeUsuario(nomenovo);
         usuario.setSenha(senhaNova);
+        
+        usuarios.remove(nomeAtual);
+        usuarios.put(nomenovo, usuario);
+        
         gerenciarDisco.guardarDados(usuarios);
+        
         return true;
     }
 
     @Override
     public Map<String, Usuario> getListaUsuarios() {
         return usuarios;
+    }
+
+    @Override
+    public boolean logar(String user, String senha) {
+        if(usuarios.containsKey(user)){
+            
+            Usuario usuario = usuarios.get(user);
+            
+            if(usuario.getSenha().equals(senha)){
+                return true;
+            }
+        }
+        
+        return false;
     }
     
 }

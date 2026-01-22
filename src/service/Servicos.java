@@ -9,4 +9,5 @@ public interface Servicos {
     public abstract boolean remover(String username);
     public abstract boolean atualizarDados(String nomeAtual, String senhaAtual,String nomenovo, String senhaNova);
     public abstract Map<String, Usuario> getListaUsuarios();
+    public abstract boolean logar(String user,String senha);
 }
