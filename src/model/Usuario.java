@@ -61,8 +61,14 @@ public class Usuario implements Serializable{
         }
         final Usuario other = (Usuario) obj;
         return Objects.equals(this.nomeUsuario, other.nomeUsuario);
+        
     }
     
-    
+    public boolean isAdmin(){
+        if (this.tipoConta == TipoConta.ADMINISTRADOR) {
+            return true;
+        }
+        return false;
+    }
     
 }

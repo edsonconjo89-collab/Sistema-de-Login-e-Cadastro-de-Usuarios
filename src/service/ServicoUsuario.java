@@ -1,6 +1,7 @@
 package service;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 import model.Usuario;
 import storage.UsuarioOO;
@@ -45,6 +46,13 @@ public class ServicoUsuario implements Servicos,Serializable{
             throw new IllegalArgumentException ("O usuario " + nomeAtual + "não existe!");
         }
         
+        Map<String, Usuario> copiaUsuariosMap = new HashMap<>(usuarios);
+        copiaUsuariosMap.remove(nomeAtual);
+        
+        if(copiaUsuariosMap.containsKey(nomenovo)){
+            throw new IllegalArgumentException("Não foi possivel atualizar os dados!\nJa existe um usuario com nome " + nomenovo + ".");
+        }
+        
         Usuario usuario = usuarios.get(nomeAtual);
         
         if(!usuario.getSenha().equals(senhaAtual)){
@@ -65,6 +73,14 @@ public class ServicoUsuario implements Servicos,Serializable{
     @Override
     public Map<String, Usuario> getListaUsuarios() {
         return usuarios;
+    }
+    
+    public Usuario getUser(String user){
+        if(!usuarios.containsKey(user)){
+            throw new IllegalArgumentException("Usuario requisitado inexistente.");
+        }
+        
+        return usuarios.get(user);
     }
 
     @Override

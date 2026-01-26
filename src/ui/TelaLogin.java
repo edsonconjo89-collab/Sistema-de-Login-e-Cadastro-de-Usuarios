@@ -53,6 +53,7 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         btEntrar.setText("Entrar");
+        btEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEntrarActionPerformed(evt);
@@ -70,31 +71,31 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNomeUsuario)
-                    .addComponent(pwfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                    .addComponent(pwfSenha))
+                .addContainerGap(49, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(238, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(188, 188, 188))
+                .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(pwfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(32, 32, 32)
                 .addComponent(btEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(542, 361));
+        setSize(new java.awt.Dimension(490, 234));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -108,18 +109,30 @@ public class TelaLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
         
         }else{
-            ServicoUsuario servico = AppContext.getInstanceServicoUsuario();
+            try{
+                ServicoUsuario servico = AppContext.getInstanceServicoUsuario();
            
-            String nome = txtNomeUsuario.getText();
-            String senha = new String(pwfSenha.getPassword());
+                String nome = txtNomeUsuario.getText();
+                String senha = new String(pwfSenha.getPassword());
             
-            boolean isValid = servico.logar(nome, senha);
+                boolean isValid = servico.logar(nome, senha);
             
-            if(isValid){
-               java.awt.EventQueue.invokeLater(() -> new TelaPrincipal().setVisible(true));
-               this.dispose();
-            }else{
-               JOptionPane.showInternalMessageDialog(null, "Usuario ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                if(isValid){
+                    AppContext.setUsuarioLogado(nome);
+                    TelaPrincipal telaPrincipal = new TelaPrincipal();
+                    if(servico.getUser(nome).isAdmin()){
+                        TelaPrincipal.menuUsuarios.setEnabled(true);
+                    }
+                    telaPrincipal.setVisible(true);
+
+                this.dispose();
+                }else{
+                JOptionPane.showInternalMessageDialog(null, "Usuario ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                txtNomeUsuario.setText(null);
+                pwfSenha.setText(null);
+                }
+            }catch(IllegalArgumentException e){
+                JOptionPane.showMessageDialog(null, e, "Erro Grave", JOptionPane.ERROR_MESSAGE);
             }
            
         }
@@ -129,6 +142,17 @@ public class TelaLogin extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
     //    ServicoUsuario servico = null;
 //        try {
 //            servico = AppContext.getInstanceServicoUsuario();

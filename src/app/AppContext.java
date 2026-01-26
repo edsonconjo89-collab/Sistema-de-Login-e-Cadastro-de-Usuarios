@@ -4,7 +4,8 @@
  */
 package app;
 
-import java.io.IOException;
+import java.util.Map;
+import model.Usuario;
 import service.ServicoUsuario;
 import storage.UsuarioOO;
 
@@ -14,6 +15,7 @@ import storage.UsuarioOO;
  */
 public class AppContext {
     public static ServicoUsuario servicoUsuario;
+    private static Usuario usuario; 
     
     public static void inicializar(){
         UsuarioOO data = new UsuarioOO();
@@ -26,4 +28,18 @@ public class AppContext {
         }
         return  servicoUsuario;
     }
+    
+    public static void setUsuarioLogado(String user){
+        Map<String,Usuario> users = servicoUsuario.getListaUsuarios();
+        AppContext.usuario = users.get(user);
+    }
+    
+    public static Usuario getUsuarioLogado(){
+        return usuario;
+    }
+    
+    public static void logout(){
+        setUsuarioLogado(null);
+    }
+    
 }

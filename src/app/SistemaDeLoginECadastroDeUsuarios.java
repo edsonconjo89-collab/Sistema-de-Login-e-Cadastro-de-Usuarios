@@ -1,6 +1,7 @@
 package app;
 
 import java.util.Map;
+import model.TipoConta;
 import model.Usuario;
 import service.ServicoUsuario;
 import storage.UsuarioOO;
@@ -12,22 +13,16 @@ public class SistemaDeLoginECadastroDeUsuarios {
 //        ServicoUsuario servico = null;
         ServicoUsuario servico = AppContext.getInstanceServicoUsuario();
            
-           
-           boolean isValid = servico.logar("gg", "admin");
-           if(isValid){
-               System.out.println("Logado com sucesso!");
-            }else{
-               System.err.println("nome ou user incorretos");
-            }
-//        try {
-//            UsuarioOO data = new UsuarioOO();
-//            servico = new ServicoUsuario(data);
-//            
-//        } catch ( IllegalArgumentException e) {
-//            System.err.println(e.getMessage());
-//        }catch(Exception e){
-//            System.out.println(e);
-//        }
+        servico.cadastrar(new Usuario("edson", "edson", TipoConta.NORMAL));
+        try {
+            UsuarioOO data = new UsuarioOO();
+            servico = new ServicoUsuario(data);
+            
+        } catch ( IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+        }catch(Exception e){
+            System.out.println(e);
+        }
         
         Map<String,Usuario> us = servico.getListaUsuarios();
         
