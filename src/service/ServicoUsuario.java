@@ -3,6 +3,7 @@ package service;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import model.TipoConta;
 import model.Usuario;
 import storage.UsuarioOO;
 
@@ -96,5 +97,38 @@ public class ServicoUsuario implements Servicos,Serializable{
         
         return false;
     }
+    
+    public int getNumeroDeUsuarios(){
+        int quantidade = 0;
+        
+        if(usuarios == null){
+            return quantidade;
+        }
+        
+        for (Map.Entry<String, Usuario> entry : usuarios.entrySet()) {
+           quantidade++;
+            
+        }
+        
+        return quantidade;
+    }
+    
+    public boolean atualizarTipoConta(String nome, TipoConta tipoConta) {
+        if(!usuarios.containsKey(nome)){
+            throw new IllegalArgumentException ("O usuario " + nome + "não existe!");
+        }
+        
+        Usuario usuario = usuarios.get(nome);
+        
+        usuario.setTipoConta(tipoConta);
+        
+        usuarios.remove(nome);
+        usuarios.put(nome, usuario);
+        
+        gerenciarDisco.guardarDados(usuarios);
+        
+        return true;
+    }
+
     
 }

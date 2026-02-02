@@ -4,6 +4,7 @@
  */
 package ui;
 
+import app.AppContext;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,6 +40,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         itemMeuPerfil = new javax.swing.JMenuItem();
+        menuLogout = new javax.swing.JMenu();
+        itemLogout = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         itemInfo = new javax.swing.JMenuItem();
 
@@ -102,6 +105,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.add(itemMeuPerfil);
 
         jMenuBar1.add(jMenu2);
+
+        menuLogout.setText("Logout");
+        menuLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLogoutActionPerformed(evt);
+            }
+        });
+
+        itemLogout.setText("Logout");
+        itemLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemLogoutActionPerformed(evt);
+            }
+        });
+        menuLogout.add(itemLogout);
+
+        jMenuBar1.add(menuLogout);
 
         jMenu3.setText("Sobre");
         jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -179,6 +199,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "\tSLCU\n\nDesenvolvido por: Edson Nicolau Condjo\n\nEmail: edsonconjo89@gmail.com","Informações",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_itemInfoActionPerformed
 
+    private void menuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLogoutActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_menuLogoutActionPerformed
+
+    private void itemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLogoutActionPerformed
+        // TODO add your handling code here:
+        int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo fazer o Logout?");
+        if (op == JOptionPane.YES_OPTION) {
+            AppContext.logout();
+            this.dispose();
+            new TelaLogin().setVisible(true);
+        }
+    }//GEN-LAST:event_itemLogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,6 +242,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane desktop;
     private javax.swing.JMenuItem itemInfo;
+    private javax.swing.JMenuItem itemLogout;
     private javax.swing.JMenuItem itemMeuPerfil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -215,6 +251,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu menuLogout;
     public static javax.swing.JMenu menuUsuarios;
     // End of variables declaration//GEN-END:variables
 }

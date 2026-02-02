@@ -4,19 +4,57 @@
  */
 package ui;
 
+import app.AppContext;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Usuario;
+import service.ServicoUsuario;
+
 /**
  *
  * @author upo
  */
 public class TelaGerenciarUsuarios extends javax.swing.JInternalFrame {
-    //ServicoUsuario servicoUsuario = AppContext.servicoUsuario;
+    private JTable tabela;
+    private DefaultTableModel modeloModel;
+    private JScrollPane scrollTabela;
+    private ServicoUsuario servicoUsuario;
+    private Usuario usuario;
     /**
      * Creates new form TelaGerenciarUsuarios
      */
     public TelaGerenciarUsuarios() {
+        servicoUsuario = AppContext.getInstanceServicoUsuario();
+        
+        modeloModel = new DefaultTableModel(new String[]{"Nome","Tipo de Conta"},0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Nenhuma c´elula edit´avel
+        }
+            };
+        tabela = new JTable(modeloModel);
+        scrollTabela = new JScrollPane(tabela);
+        scrollTabela.setBounds(100, 130, 500, 250);
+        this.add(scrollTabela);
+        
         initComponents();
+        preencherTabela();
     }
-
+    
+    private void preencherTabela(){
+        
+        Map<String , Usuario> usuarios = servicoUsuario.getListaUsuarios();
+        for (Map.Entry<String, Usuario> entry : usuarios.entrySet()) {
+            Object key = entry.getKey();
+            Usuario val = entry.getValue();
+            String [] linha = {val.getNomeUsuario() , String.valueOf(val.getTipoConta())}; 
+            modeloModel.addRow(linha);
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,41 +66,51 @@ public class TelaGerenciarUsuarios extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         txtNomeUsuario = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaUsuarios = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btRemover = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Gerenciar Usuários");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jLabel1.setText("Nome do Usuário");
 
-        tabelaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Usuario", "Tipo de conta"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        txtNomeUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeUsuarioKeyPressed(evt);
             }
         });
-        jScrollPane2.setViewportView(tabelaUsuarios);
-
-        jButton1.setText("Buscar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btEditar.setText("Editar");
+        btEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Remover");
+        btRemover.setText("Remover");
+        btRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,21 +119,16 @@ public class TelaGerenciarUsuarios extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(65, 65, 65)
                         .addComponent(btEditar)
-                        .addGap(62, 62, 62)
-                        .addComponent(jButton2)
-                        .addGap(64, 64, 64)
-                        .addComponent(jButton1))
-                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addGap(158, 158, 158)
+                        .addComponent(btRemover))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,25 +140,83 @@ public class TelaGerenciarUsuarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btEditar)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(btRemover))
+                .addContainerGap(346, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formInternalFrameOpened
 
+    private void txtNomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyPressed
+        // TODO add your handling ode here:
+        modeloModel.setRowCount(0);
+        String nome = txtNomeUsuario.getText();
+        
+        Map<String , Usuario> usuarios = servicoUsuario.getListaUsuarios();
+        
+        for (Map.Entry<String, Usuario> entry : usuarios.entrySet()) {
+            String key = entry.getKey().toLowerCase();
+            Usuario val = entry.getValue();
+            
+            if(key.contains(nome.toLowerCase())){
+                String [] linha = {val.getNomeUsuario() , String.valueOf(val.getTipoConta())}; 
+                modeloModel.addRow(linha);
+            }
+            
+        }
+
+         
+    }//GEN-LAST:event_txtNomeUsuarioKeyPressed
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        // TODO add your handling code here:
+        if(tabela.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um usuario para Editar");
+        }else{
+            String nomeDoUsuario = (String)tabela.getValueAt(tabela.getSelectedRow(), 0);
+            if(nomeDoUsuario.equalsIgnoreCase(AppContext.getUsuarioLogado().getNomeUsuario())){
+                JOptionPane.showMessageDialog(null, "Não pode fazer esta operacão porque esta logado atualmente na conta.\nPara fazer alteracoes na sua conta entre no menu 'Meu Perfil'.","Erro",JOptionPane.WARNING_MESSAGE);
+            }else{
+                TelaEditarUsuario tela = new TelaEditarUsuario(nomeDoUsuario);
+                tela.setVisible(true);
+                this.dispose();
+            }
+            
+        }
+    }//GEN-LAST:event_btEditarActionPerformed
+
+    private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
+        if(tabela.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um usuario para Remover!");
+        }else{
+                String nomeDoUsuario = (String)tabela.getValueAt(tabela.getSelectedRow(), 0);
+                if(nomeDoUsuario.equalsIgnoreCase(AppContext.getUsuarioLogado().getNomeUsuario())){
+                    JOptionPane.showMessageDialog(null, "Não pode fazer esta operacão porque esta logado atualmente na conta.\nPara fazer alteracoes na sua conta entre no menu 'Meu Perfil'.","Erro",JOptionPane.WARNING_MESSAGE);
+                }else{
+            
+                int op = JOptionPane.showConfirmDialog(null, "Remover o usuario '" + nomeDoUsuario + "'?\nNão sera possivel reverter essa acão.", "Confirmar", JOptionPane.WARNING_MESSAGE);
+            
+                if (op == JOptionPane.YES_OPTION) {
+                    servicoUsuario.remover(nomeDoUsuario);
+                    JOptionPane.showMessageDialog(null, "Removido com sucesso!");
+                    modeloModel.setRowCount(0);
+                    preencherTabela();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Operacão cancelada!");
+                }
+            }
+            
+        }
+    }//GEN-LAST:event_btRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btRemover;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tabelaUsuarios;
     private javax.swing.JTextField txtNomeUsuario;
     // End of variables declaration//GEN-END:variables
 }

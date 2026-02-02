@@ -3,20 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/app/SistemaDeLoginECadastroDeUsuarios.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/exception/Exception.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/model/TipoConta.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/model/Usuario.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/service/ServicoUsuario.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/service/Servicos.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/storage/UsuarioOO.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/ui/TelaLogin.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/app/AppContext.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/ui/TelaPrincipal.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/ui/TelaCadastrar.java</file>
             <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/ui/TelaGerenciarUsuarios.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/ui/TelaMeuPerfil.java</file>
-            <file>file:/C:/Users/upo/Documents/NetBeansProjects/Sistema%20de%20Login%20e%20Cadastro%20de%20Usuarios/src/ui/TelaEditarMeuPerfil.java</file>
         </group>
     </open-files>
 </project-private>

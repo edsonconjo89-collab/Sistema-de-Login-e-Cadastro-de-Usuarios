@@ -156,7 +156,7 @@ public class TelaEditarMeuPerfil extends javax.swing.JInternalFrame {
                 }
                 
             }else{
-                JOptionPane.showMessageDialog(null, "Senha Antiga Incorreta!","Não foi possivel atualizar o seu perfil",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Senha Atual Incorreta!","Não foi possivel atualizar o seu perfil",JOptionPane.WARNING_MESSAGE);
                 limparCampos();
             }
             
