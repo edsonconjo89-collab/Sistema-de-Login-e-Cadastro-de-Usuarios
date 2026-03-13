@@ -7,13 +7,6 @@ Este é o meu primeiro projeto unindo POO + Swing, desenvolvido como parte do me
 
 ---
 
-Estado do projeto
-
-🚧 Em desenvolvimento
-
-
----
-
 Funcionalidades
 
 Sistema de login
@@ -37,9 +30,6 @@ Secção “Sobre”
 Interface gráfica criada com Swing (NetBeans GUI Builder)
 
 
-
----
-
 Funcionalidades em desenvolvimento
 
 Centralização do usuário logado
@@ -49,8 +39,6 @@ Alteração de senha
 Remoção e edição de usuários via interface
 
 Validações adicionais e melhorias de robustez
-
-Melhor feedback ao usuário (mensagens)
 
 
 
